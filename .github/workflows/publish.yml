@@ -7,7 +7,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -22,15 +22,17 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.2
     - name: Restore Packages
       run: nuget restore MotoiCal.sln
+    - name: Build Solution
+      run: msbuild.exe MotoiCal.sln /p:configuration="Release"
       
-    - name: Restore
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal
-    - name: Pack
-      run: dotnet pack --configuration Release --no-build  MotoiCal/MotoiCal.csproj --output package
+    #- name: Restore
+      #run: dotnet restore
+    #- name: Build
+      #run: dotnet build --configuration Release --no-restore
+    #- name: Test
+      #run: dotnet test --configuration Release --no-build --verbosity normal
+    #- name: Pack
+      #run: dotnet pack --configuration Release --no-build  MotoiCal/MotoiCal.csproj --output package
       
     #- name: Source  
       #run: dotnet nuget add source --username plus1xp --password ${{ secrets.GITHUB_TOKEN }}
